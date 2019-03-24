@@ -1,0 +1,14 @@
+.unclicked {
+	background-color: gray;
+}
+
+.clicked {
+	background-color: black;
+}
+
+.col {
+	width: 20px; 
+	height: 20px; 
+	display: inline-block; 
+	margin-right: 2px;
+}
