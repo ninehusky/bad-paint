@@ -2,7 +2,10 @@ let generated = false;
 const GRID_SIZE = 500;
 
 function generateGrid() {
-	let length = prompt('How long would you like the grid to be?');
+	let length = -1;
+	while (length < 0 || length > 30) {
+		length = prompt('How long would you like the grid to be? (Pick a positive number less than or equal to 30!)');
+	}
 	if (!generated) {
 		generated = true;
 	} else {
@@ -39,7 +42,6 @@ function resetGrid() {
 	}
 }
 
-// im doing this fucking e thing to denote a class because im about that life
 function changeColor(e) {
 	e.target.classList.remove('unclicked');
 	e.target.classList.add('clicked');
