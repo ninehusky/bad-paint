@@ -1,27 +1,41 @@
 let generated = false;
+const GRID_SIZE = 500;
 
-function createDivs() {
+function generateGrid() {
+	let length = prompt('How long would you like the grid to be?');
 	if (!generated) {
 		generated = true;
-		const container = document.querySelector('#container');
-		let count = 0;
-		for (let i = 0; i < 16; i++) {
-			let row = document.createElement('div');
-			row.setAttribute('class', 'row');
-			container.appendChild(row);
+	} else {
+		resetGrid();
+	}
+	createDivs(length, length);
+}
 
-			for (let j = 0; j < 16; j++) {
-				count++;
-				let col = document.createElement('div');
-				let id = 'col' + count;
-				col.setAttribute('class', 'col unclicked');
-				col.setAttribute('id', id);
-				col.addEventListener('mouseenter', changeColor, false);
-				row.appendChild(col);
-			}
-			
+function createDivs(rows, cols) {
+	const container = document.querySelector('#container');
+	let size = parseInt(GRID_SIZE / rows, 10);
+	for (let i = 0; i < rows; i++) {
+		let row = document.createElement('div');
+		row.setAttribute('class', 'row');
+		container.appendChild(row);
+
+		// everything should be 960 px wide
+		for (let j = 0; j < cols; j++) {
+			let col = document.createElement('div');
+			col.setAttribute('class', 'col unclicked');
+			col.style.width = size + 'px';
+			col.style.height = size + 'px';
+			col.addEventListener('click', changeColor);
+			row.appendChild(col);
 		}
-		console.log('Done!');
+		
+	}
+}
+
+function resetGrid() {
+	let container = document.getElementById('container');
+	while (container.firstChild) {
+		container.firstChild.remove();
 	}
 }
 
@@ -31,7 +45,7 @@ function changeColor(e) {
 	e.target.classList.add('clicked');
 }
 
-function reset() {
+function erase() {
 	let rows = document.getElementById('container').children;
 	for (let i = 0; i < rows.length; i++) {
 		let row = rows[i].children;
